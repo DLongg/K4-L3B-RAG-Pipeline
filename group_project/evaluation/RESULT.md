@@ -18,7 +18,7 @@ Repository hiện đáp ứng mức tối thiểu về dữ liệu: 3 PDF pháp 
 | `top_k` | 5 |
 | Threshold fallback | `0.575543...`, làm tròn `0.58` |
 | Threshold calibration | 5 in-domain + 5 out-of-domain; balanced accuracy 1.0 trên tập calibration |
-| Unit/acceptance tests | 24 passed |
+| Unit/acceptance tests | 25 passed |
 
 Minh chứng thô:
 

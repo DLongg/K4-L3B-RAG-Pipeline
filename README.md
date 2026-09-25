@@ -14,7 +14,8 @@ Nhóm tự chọn bài toán và thu thập dữ liệu phù hợp; repo không 
 - Chatbot Streamlit hiển thị câu trả lời và nguồn đã dùng.
 - Golden dataset tối thiểu 15 câu; đánh giá 4 metric và so sánh A/B.
 - `group_project/evaluation/RESULT.md`.
-- Mỗi thành viên nộp báo cáo cá nhân theo template trong `group_project/ịndividual/INDIVIDUAL_REPORT.md`.
+- Mỗi thành viên nộp báo cáo cá nhân theo template `reports/INDIVIDUAL_REPORT.md`,
+  đặt tên `reports/K4-L3B-MSSV-HoTen.md`.
 
 ## Quick start
 
@@ -84,7 +85,8 @@ streamlit run app.py
 - [Module contracts](docs/MODULE_CONTRACTS.md): schema, interface và invariant mà code/test nên tuân theo.
 - [Step-by-step guide](docs/STEP_BY_STEP.md): thứ tự triển khai và tiêu chí hoàn thành từng bước.
 - [Grading rubric](docs/GRADING_RUBRIC.md): Rubric thang điểm.
-- [Individual report](group_project/ịndividual/INDIVIDUAL_REPORT.md): template báo cáo cá nhân.
+- [Team members](TEAMMATES.md): danh sách thành viên, phân công và liên kết báo cáo.
+- [Individual report](reports/INDIVIDUAL_REPORT.md): template báo cáo cá nhân.
 - [Suggested topics](docs/SUGGESTED_TOPICS.md): danh sách chủ đề tham khảo, không bắt buộc.
 
 ## Kiểm tra
@@ -100,6 +102,23 @@ pytest tests/test_acceptance.py -q
 pytest -q
 ```
 
-Kết quả đã kiểm chứng ngày 25/09/2026: `24 passed`. Báo cáo và tự chấm dựa trên
+Kết quả đã kiểm chứng ngày 25/09/2026: `25 passed`. Báo cáo và tự chấm dựa trên
 artifact nằm tại `group_project/evaluation/RESULT.md`; số liệu live Ragas chỉ được
 ghi nhận sau khi `evaluation_results.json` hoàn thành đủ 15 case cho cả hai cấu hình.
+
+## Checklist nộp VLearn
+
+- Nộp URL chung: `https://github.com/DLongg/K4-L3B-RAG-Pipeline`.
+- Kiểm tra `TEAMMATES.md` và đủ ba báo cáo `reports/K4-L3B-*.md`.
+- Chạy contract test, acceptance test và toàn bộ test trên commit nộp.
+- Demo một câu đúng domain, một câu ngoài domain và bảng A/B trong
+  `group_project/evaluation/RESULT.md`.
+- Không commit `.env`, API key, `chroma_db/`, `__pycache__/` hoặc cache PageIndex.
+
+### Bộ demo đã kiểm tra
+
+| Loại | Câu hỏi | Kết quả mong đợi |
+| --- | --- | --- |
+| Đúng domain | `Thẻ hướng dẫn viên du lịch quốc tế có thời hạn bao lâu?` | Trả lời 05 năm, có `[Document 1]` và hiển thị nguồn |
+| Ngoài domain | `Cách cấu hình Kubernetes production trên AWS?` | Safe refusal, không hiển thị nguồn giả |
+| A/B | Mở `group_project/evaluation/RESULT.md` | Hybrid + RRF recall 1.0000 so với dense-only 0.9333 |

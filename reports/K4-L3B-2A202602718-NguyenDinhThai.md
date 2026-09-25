@@ -43,7 +43,7 @@
 ## Kiểm thử và kết quả
 
 - **Lệnh đã chạy:** `python -m pytest -q`
-- **Kết quả tại ngày báo cáo:** `24 passed`.
+- **Kết quả tại ngày báo cáo:** `25 passed`.
 - **Phạm vi kiểm thử Task 8–10:** PageIndex tree parsing bằng mock không gọi mạng; fallback dựa trên dense score; chỉ fuse RRF một lần; provider lỗi không làm pipeline crash; threshold calibration; reorder không mutate input; nhãn citation sau reorder; từ chối citation ngoài danh sách nguồn.
 - **Kiểm tra cú pháp:** `python -m py_compile src/task8_pageindex_vectorless.py src/task9_retrieval_pipeline.py src/task10_generation.py app.py` hoàn tất không lỗi.
 - **LLM live:** Gemini trả lời đúng câu “Thẻ hướng dẫn viên du lịch quốc tế có thời hạn bao lâu?” là 05 năm và trích `[Document 1]`.
