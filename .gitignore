@@ -42,7 +42,7 @@ data/_tmp_pdf/
 .pytest_cache/
 *.tmp
 *.log
-pageindex_doc_ids.json
+data/pageindex_cache.json
 pageindex_pdfs/
 chroma_db/
 

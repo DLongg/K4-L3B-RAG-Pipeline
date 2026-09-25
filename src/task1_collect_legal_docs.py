@@ -10,9 +10,7 @@ Hướng dẫn:
 Tài liệu đã thu thập trong data/landing/legal/:
     - Luat-Du-lich-so-092017QH14.pdf: Luật Du lịch số 09/2017/QH14 (Quốc hội)
     - 168.signed.pdf: Nghị định 168/2017/NĐ-CP hướng dẫn thi hành Luật Du lịch (Chính phủ)
-    - 45.signed.pdf: Nghị định 45/2019/NĐ-CP xử phạt vi phạm hành chính lĩnh vực du lịch (Chính phủ)
     - 509-ttg.signed.pdf: Quyết định 509/QĐ-TTg phê duyệt Quy hoạch hệ thống du lịch 2021-2030 (Thủ tướng)
-    - 147.signed.pdf: Quyết định 147/QĐ-TTg phê duyệt Chiến lược phát triển du lịch đến 2030 (Thủ tướng)
 """
 
 from pathlib import Path
@@ -30,16 +28,8 @@ LEGAL_SOURCES = {
         "title": "Nghị định 168/2017/NĐ-CP quy định chi tiết một số điều của Luật Du lịch",
         "source": "Cổng thông tin điện tử Chính phủ",
     },
-    "45.signed.pdf": {
-        "title": "Nghị định 45/2019/NĐ-CP xử phạt vi phạm hành chính trong lĩnh vực du lịch",
-        "source": "Cổng thông tin điện tử Chính phủ",
-    },
     "509-ttg.signed.pdf": {
         "title": "Quyết định 509/QĐ-TTg phê duyệt Quy hoạch hệ thống du lịch 2021-2030",
-        "source": "Cổng thông tin điện tử Chính phủ",
-    },
-    "147.signed.pdf": {
-        "title": "Quyết định 147/QĐ-TTg phê duyệt Chiến lược phát triển du lịch Việt Nam đến 2030",
         "source": "Cổng thông tin điện tử Chính phủ",
     },
 }

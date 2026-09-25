@@ -1,0 +1,666 @@
+{
+  "method": "offline_semantic_proxy",
+  "definitions": {
+    "faithfulness_proxy": "maximum BGE-M3 cosine similarity between the reference answer and a retrieved chunk",
+    "answer_relevance_proxy": "BGE-M3 cosine similarity between question and reference answer",
+    "context_recall": "1 when at least one expected source file appears in top-5, otherwise 0",
+    "context_precision": "fraction of top-5 chunks whose source file is expected",
+    "reciprocal_rank": "1/rank of the first expected source file"
+  },
+  "results": {
+    "dense": [
+      {
+        "question": "Điều kiện kinh doanh dịch vụ lưu trú du lịch là gì?",
+        "expected_context": [
+          "article_02.md"
+        ],
+        "retrieved_sources": [
+          "article_02.md",
+          "article_02.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "168.signed.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7556994138620348,
+          "answer_relevance_proxy": 0.7280098418346769,
+          "context_recall": 1.0,
+          "context_precision": 0.4
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 200.10199999978795
+      },
+      {
+        "question": "Hồ sơ xin e-visa nhập cảnh Việt Nam gồm những gì?",
+        "expected_context": [
+          "article_03.md"
+        ],
+        "retrieved_sources": [
+          "article_03.md",
+          "article_03.md",
+          "article_03.md",
+          "article_03.md",
+          "article_03.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7405935056589655,
+          "answer_relevance_proxy": 0.6253261886364893,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 255.76619999992545
+      },
+      {
+        "question": "Khách du lịch có quyền gì khi sử dụng dịch vụ du lịch?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "article_04.md",
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_04.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.8391438138059343,
+          "answer_relevance_proxy": 0.7909925872873508,
+          "context_recall": 1.0,
+          "context_precision": 0.8
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 199.96220000030007
+      },
+      {
+        "question": "Khách du lịch có nghĩa vụ gì?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_04.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7800599550937578,
+          "answer_relevance_proxy": 0.7007840737764713,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 180.62360000021727
+      },
+      {
+        "question": "Phát triển du lịch bền vững cần tập trung vào yếu tố nào?",
+        "expected_context": [
+          "article_05.md"
+        ],
+        "retrieved_sources": [
+          "article_05.md",
+          "article_05.md",
+          "509-ttg.signed.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "Luat-Du-lich-so-092017QH14.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6797052269044496,
+          "answer_relevance_proxy": 0.6044492102362254,
+          "context_recall": 1.0,
+          "context_precision": 0.4
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 259.22580000042217
+      },
+      {
+        "question": "Vi phạm hành chính trong lĩnh vực du lịch có thể bị xử lý thế nào?",
+        "expected_context": [
+          "article_06.md"
+        ],
+        "retrieved_sources": [
+          "article_06.md",
+          "article_06.md",
+          "article_06.md",
+          "article_06.md",
+          "article_06.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6194176300197267,
+          "answer_relevance_proxy": 0.5683785262705751,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 196.55450000027486
+      },
+      {
+        "question": "Quy định xử phạt du lịch áp dụng cho đối tượng nào?",
+        "expected_context": [
+          "article_06.md"
+        ],
+        "retrieved_sources": [
+          "article_06.md",
+          "article_04.md",
+          "article_04.md",
+          "article_04.md",
+          "article_06.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7146222048707899,
+          "answer_relevance_proxy": 0.7269121060334861,
+          "context_recall": 1.0,
+          "context_precision": 0.4
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 192.14539999939007
+      },
+      {
+        "question": "Hà Nội có những địa điểm du lịch nào đáng chú ý?",
+        "expected_context": [
+          "article_07.md"
+        ],
+        "retrieved_sources": [
+          "article_08.md",
+          "article_07.md",
+          "article_08.md",
+          "509-ttg.signed.md",
+          "509-ttg.signed.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6040321852852231,
+          "answer_relevance_proxy": 0.6280483022898966,
+          "context_recall": 1.0,
+          "context_precision": 0.2
+        },
+        "reciprocal_rank": 0.5,
+        "retrieval_ms": 198.77219999943918
+      },
+      {
+        "question": "Việt Nam có những điểm đến nổi tiếng nào?",
+        "expected_context": [
+          "article_08.md"
+        ],
+        "retrieved_sources": [
+          "article_08.md",
+          "article_08.md",
+          "article_07.md",
+          "article_07.md",
+          "article_07.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7705286588844422,
+          "answer_relevance_proxy": 0.707509865586333,
+          "context_recall": 1.0,
+          "context_precision": 0.4
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 182.33150000014575
+      },
+      {
+        "question": "Tại sao cần cung cấp thông tin đầy đủ cho khách du lịch?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "168.signed.md",
+          "168.signed.md",
+          "article_04.md",
+          "168.signed.md",
+          "Luat-Du-lich-so-092017QH14.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7276650304624266,
+          "answer_relevance_proxy": 0.7558366584213181,
+          "context_recall": 1.0,
+          "context_precision": 0.2
+        },
+        "reciprocal_rank": 0.3333333333333333,
+        "retrieval_ms": 200.4879999994955
+      },
+      {
+        "question": "Doanh nghiệp lưu trú cần quan tâm điều kiện pháp lý nào?",
+        "expected_context": [
+          "article_02.md"
+        ],
+        "retrieved_sources": [
+          "article_02.md",
+          "article_02.md",
+          "article_02.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "Luat-Du-lich-so-092017QH14.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.71759281495418,
+          "answer_relevance_proxy": 0.8010390003571208,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 201.17019999997865
+      },
+      {
+        "question": "E-visa liên quan đến hoạt động du lịch như thế nào?",
+        "expected_context": [
+          "article_03.md"
+        ],
+        "retrieved_sources": [
+          "article_03.md",
+          "article_03.md",
+          "article_03.md",
+          "article_03.md",
+          "Luat-Du-lich-so-092017QH14.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7862066024683703,
+          "answer_relevance_proxy": 0.7065705297005663,
+          "context_recall": 1.0,
+          "context_precision": 0.8
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 189.7449999996752
+      },
+      {
+        "question": "Phát triển du lịch bền vững có lợi ích gì cho địa phương?",
+        "expected_context": [
+          "article_05.md"
+        ],
+        "retrieved_sources": [
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_05.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_05.md",
+          "article_05.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6392737755088509,
+          "answer_relevance_proxy": 0.646319651979212,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 0.5,
+        "retrieval_ms": 183.42529999972612
+      },
+      {
+        "question": "Khách du lịch cần làm gì để tránh vi phạm nội quy điểm đến?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_04.md",
+          "article_04.md",
+          "168.signed.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7848380908612308,
+          "answer_relevance_proxy": 0.6984121119628381,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 230.2352000006067
+      },
+      {
+        "question": "Cần dựa vào đâu để tư vấn một hành trình du lịch Việt Nam?",
+        "expected_context": [
+          "article_03.md",
+          "article_08.md"
+        ],
+        "retrieved_sources": [
+          "article_07.md",
+          "article_07.md",
+          "article_07.md",
+          "article_07.md",
+          "article_07.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.5693898043301227,
+          "answer_relevance_proxy": 0.5734385135245824,
+          "context_recall": 0.0,
+          "context_precision": 0.0
+        },
+        "reciprocal_rank": 0.0,
+        "retrieval_ms": 176.51699999987613
+      }
+    ],
+    "hybrid_rrf": [
+      {
+        "question": "Điều kiện kinh doanh dịch vụ lưu trú du lịch là gì?",
+        "expected_context": [
+          "article_02.md"
+        ],
+        "retrieved_sources": [
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_02.md",
+          "article_02.md",
+          "168.signed.md",
+          "article_02.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7645244009131124,
+          "answer_relevance_proxy": 0.7280098418346769,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 0.5,
+        "retrieval_ms": 767.1578999998019
+      },
+      {
+        "question": "Hồ sơ xin e-visa nhập cảnh Việt Nam gồm những gì?",
+        "expected_context": [
+          "article_03.md"
+        ],
+        "retrieved_sources": [
+          "article_03.md",
+          "article_03.md",
+          "article_03.md",
+          "article_03.md",
+          "article_03.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7405935056589655,
+          "answer_relevance_proxy": 0.6253261886364893,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 176.65020000004006
+      },
+      {
+        "question": "Khách du lịch có quyền gì khi sử dụng dịch vụ du lịch?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_04.md",
+          "article_04.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.8391438138059343,
+          "answer_relevance_proxy": 0.7909925872873508,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 217.34119999928225
+      },
+      {
+        "question": "Khách du lịch có nghĩa vụ gì?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "article_04.md",
+          "article_04.md",
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7800599550937578,
+          "answer_relevance_proxy": 0.7007840737764713,
+          "context_recall": 1.0,
+          "context_precision": 0.8
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 168.20499999994354
+      },
+      {
+        "question": "Phát triển du lịch bền vững cần tập trung vào yếu tố nào?",
+        "expected_context": [
+          "article_05.md"
+        ],
+        "retrieved_sources": [
+          "article_05.md",
+          "509-ttg.signed.md",
+          "article_05.md",
+          "article_05.md",
+          "509-ttg.signed.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6753176212713672,
+          "answer_relevance_proxy": 0.6044492102362254,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 188.676800000394
+      },
+      {
+        "question": "Vi phạm hành chính trong lĩnh vực du lịch có thể bị xử lý thế nào?",
+        "expected_context": [
+          "article_06.md"
+        ],
+        "retrieved_sources": [
+          "article_06.md",
+          "article_06.md",
+          "article_04.md",
+          "article_06.md",
+          "article_06.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6620495355533753,
+          "answer_relevance_proxy": 0.5683785262705751,
+          "context_recall": 1.0,
+          "context_precision": 0.8
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 180.4505000000063
+      },
+      {
+        "question": "Quy định xử phạt du lịch áp dụng cho đối tượng nào?",
+        "expected_context": [
+          "article_06.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "article_06.md",
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_06.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7677978522239886,
+          "answer_relevance_proxy": 0.7269121060334861,
+          "context_recall": 1.0,
+          "context_precision": 0.4
+        },
+        "reciprocal_rank": 0.5,
+        "retrieval_ms": 185.34210000052553
+      },
+      {
+        "question": "Hà Nội có những địa điểm du lịch nào đáng chú ý?",
+        "expected_context": [
+          "article_07.md"
+        ],
+        "retrieved_sources": [
+          "article_08.md",
+          "article_08.md",
+          "article_08.md",
+          "509-ttg.signed.md",
+          "article_07.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6040321852852231,
+          "answer_relevance_proxy": 0.6280483022898966,
+          "context_recall": 1.0,
+          "context_precision": 0.2
+        },
+        "reciprocal_rank": 0.2,
+        "retrieval_ms": 184.49489999966318
+      },
+      {
+        "question": "Việt Nam có những điểm đến nổi tiếng nào?",
+        "expected_context": [
+          "article_08.md"
+        ],
+        "retrieved_sources": [
+          "article_08.md",
+          "article_08.md",
+          "article_07.md",
+          "article_07.md",
+          "article_08.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7705286588844422,
+          "answer_relevance_proxy": 0.707509865586333,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 200.62630000029458
+      },
+      {
+        "question": "Tại sao cần cung cấp thông tin đầy đủ cho khách du lịch?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "article_04.md",
+          "168.signed.md",
+          "168.signed.md",
+          "168.signed.md",
+          "168.signed.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7276650304624266,
+          "answer_relevance_proxy": 0.7558366584213181,
+          "context_recall": 1.0,
+          "context_precision": 0.2
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 182.54009999964182
+      },
+      {
+        "question": "Doanh nghiệp lưu trú cần quan tâm điều kiện pháp lý nào?",
+        "expected_context": [
+          "article_02.md"
+        ],
+        "retrieved_sources": [
+          "article_02.md",
+          "article_02.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_02.md",
+          "article_02.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.71759281495418,
+          "answer_relevance_proxy": 0.8010390003571208,
+          "context_recall": 1.0,
+          "context_precision": 0.8
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 196.03250000000116
+      },
+      {
+        "question": "E-visa liên quan đến hoạt động du lịch như thế nào?",
+        "expected_context": [
+          "article_03.md"
+        ],
+        "retrieved_sources": [
+          "article_03.md",
+          "article_04.md",
+          "article_03.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_03.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7862066024683703,
+          "answer_relevance_proxy": 0.7065705297005663,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 222.0977999995739
+      },
+      {
+        "question": "Phát triển du lịch bền vững có lợi ích gì cho địa phương?",
+        "expected_context": [
+          "article_05.md"
+        ],
+        "retrieved_sources": [
+          "article_05.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_05.md",
+          "article_05.md",
+          "Luat-Du-lich-so-092017QH14.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.6392737755088509,
+          "answer_relevance_proxy": 0.646319651979212,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 199.000800000249
+      },
+      {
+        "question": "Khách du lịch cần làm gì để tránh vi phạm nội quy điểm đến?",
+        "expected_context": [
+          "article_04.md"
+        ],
+        "retrieved_sources": [
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_04.md",
+          "Luat-Du-lich-so-092017QH14.md",
+          "article_04.md",
+          "article_04.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.7848380908612308,
+          "answer_relevance_proxy": 0.6984121119628381,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "reciprocal_rank": 0.5,
+        "retrieval_ms": 172.97700000017358
+      },
+      {
+        "question": "Cần dựa vào đâu để tư vấn một hành trình du lịch Việt Nam?",
+        "expected_context": [
+          "article_03.md",
+          "article_08.md"
+        ],
+        "retrieved_sources": [
+          "article_08.md",
+          "article_07.md",
+          "article_05.md",
+          "article_07.md",
+          "article_07.md"
+        ],
+        "metrics": {
+          "faithfulness_proxy": 0.5693898043301227,
+          "answer_relevance_proxy": 0.5734385135245824,
+          "context_recall": 1.0,
+          "context_precision": 0.2
+        },
+        "reciprocal_rank": 1.0,
+        "retrieval_ms": 178.29450000044744
+      }
+    ]
+  },
+  "summary": {
+    "dense": {
+      "faithfulness_proxy": 0.7152512475313669,
+      "answer_relevance_proxy": 0.6841351445264762,
+      "context_recall": 0.9333333333333333,
+      "context_precision": 0.5333333333333333,
+      "mrr": 0.8222222222222223,
+      "mean_retrieval_ms": 203.13760666661742
+    },
+    "hybrid_rrf": {
+      "faithfulness_proxy": 0.7219342431516899,
+      "answer_relevance_proxy": 0.6841351445264762,
+      "context_recall": 1.0,
+      "context_precision": 0.5733333333333334,
+      "mrr": 0.8466666666666666,
+      "mean_retrieval_ms": 227.99250666666921
+    }
+  }
+}

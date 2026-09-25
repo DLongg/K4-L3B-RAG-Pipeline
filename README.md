@@ -39,6 +39,21 @@ python -m src.task3_convert_markdown
 python -m src.task4_chunking_indexing
 pytest -q
 
+# 2b. Tuỳ chọn: upload PDF cho PageIndex fallback (ID được cache cục bộ)
+python -m src.task8_pageindex_vectorless
+
+# Hiệu chỉnh threshold từ query có nhãn in/out-domain
+python -m src.task9_retrieval_pipeline --calibrate group_project/evaluation/threshold_queries.json
+
+# Kết quả hiện tại với BGE-M3: threshold 0.5755 (làm tròn 0.58).
+# Chi tiết: group_project/evaluation/threshold_calibration_result.json
+
+# 2c. Chạy A/B 15 câu hoàn toàn local và lưu raw result
+python group_project/evaluation/run_offline_evaluation.py
+
+# Tuỳ chọn: chạy đúng 4 Ragas metric qua Gemini; runner có checkpoint
+python group_project/evaluation/run_evaluation.py
+
 # 3. Chạy sản phẩm
 streamlit run app.py
 ```
@@ -61,6 +76,8 @@ streamlit run app.py
 - RRF chỉ nên dùng để gộp thứ hạng và chỉ chạy một lần.
 - Fallback dùng cosine score gốc của dense retrieval.
 - Threshold phải được hiệu chỉnh trên query in domain và out of domain, không có một con số đúng cho mọi corpus.
+- Kết quả lệnh hiệu chỉnh chỉ là gợi ý trên tập calibration; chép `selected.threshold` vào
+  `SCORE_THRESHOLD` rồi kiểm tra lại trên tập held-out trước khi demo.
 
 ## Tài liệu
 
@@ -82,3 +99,7 @@ pytest tests/test_acceptance.py -q
 # Toàn bộ
 pytest -q
 ```
+
+Kết quả đã kiểm chứng ngày 25/09/2026: `24 passed`. Báo cáo và tự chấm dựa trên
+artifact nằm tại `group_project/evaluation/RESULT.md`; số liệu live Ragas chỉ được
+ghi nhận sau khi `evaluation_results.json` hoàn thành đủ 15 case cho cả hai cấu hình.
