@@ -1,0 +1,29 @@
+# Quy định mới trong xử phạt vi phạm hành chính lĩnh vực du lịch
+
+**Source:** https://pbgdpl.camau.gov.vn/quy-dinh-moi-trong-xu-phat-vi-pham-hanh-chinh-linh-vuc-du-lich.7639
+
+**Crawled:** 2026-09-25T12:41:05.864157
+
+---
+
+**Tác giả:** Quang Phú  
+**Ngày đăng:** 09/01/2026  
+**Nguồn:** Trang Thông tin Phổ biến, giáo dục pháp luật tỉnh Cà Mau
+
+Nhằm hoàn thiện các quy định về xử phạt vi phạm hành chính trong lĩnh vực du lịch, đáp ứng yêu cầu tăng cường hiệu lực, hiệu quả quản lý nhà nước và phù hợp với tình hình phát triển của ngành du lịch trong giai đoạn mới, ngày 30/12/2025, Chính phủ đã ban hành **Nghị định số 348/2025/NĐ-CP** sửa đổi, bổ sung một số quy định của **Nghị định số 45/2019/NĐ-CP** về xử phạt vi phạm hành chính trong lĩnh vực du lịch.
+
+Nghị định đã bổ sung, điều chỉnh nhiều điểm mới quan trọng trong quy định xử phạt, góp phần siết chặt kỷ cương pháp luật, nâng cao ý thức chấp hành của tổ chức, cá nhân hoạt động du lịch. Theo đó, một số điểm mới trong xử phạt vi phạm hành chính lĩnh vực du lịch như sau:
+
+* **Bãi bỏ hình thức xử phạt bổ sung** đối với một số hành vi vi phạm quy định chung về hoạt động kinh doanh du lịch (Khoản 8 Điều 6);
+* **Bãi bỏ quy định xử phạt** hành vi “không viết hoặc không gắn tên chi nhánh, văn phòng đại diện, địa điểm kinh doanh tại trụ sở chi nhánh, văn phòng đại diện, địa điểm kinh doanh” (Khoản 5 Điều 7);
+* **Bãi bỏ quy định xử phạt hành vi “để khách du lịch trốn ở lại nước ngoài hoặc trốn ở lại Việt Nam trái pháp luật”** tại điểm c khoản 13 Điều 7 Nghị định số 45/2019/NĐ-CP (trước đây có mức phạt tiền từ 80.000.000 đồng đến 90.000.000 đồng).
+
+Thay vào đó, bổ sung khoản 13a sau khoản 13 Điều 7 Nghị định số 45/2019/NÐ-CP nội dung:
+> “13a. Đối với trường hợp doanh nghiệp kinh doanh dịch vụ lữ hành có khách du lịch trốn ở lại nước ngoài hoặc trốn ở lại Việt Nam trái pháp luật thì bị xử phạt theo quy định tại điểm d khoản 9 Điều 21 của Nghị định số 282/2025/NĐ-CP ngày 30 tháng 10 năm 2025 của Chính phủ quy định xử phạt vi phạm hành chính trong lĩnh vực an ninh, trật tự, an toàn xã hội; phòng, chống tệ nạn xã hội; phòng, chống bạo lực gia đình”.
+
+Như vậy, thay vì xử phạt theo Nghị định số 45/2019/NÐ-CP thì sắp tới, “trường hợp doanh nghiệp kinh doanh dịch vụ lữ hành có khách du lịch trốn ở lại nước ngoài hoặc trốn ở lại Việt Nam trái pháp luật” sẽ bị xử phạt theo Nghị định số 282/2025/NÐ-CP.
+
+Cụ thể, điểm d khoản 9 Điều 21 của Nghị định số 282/2025/NÐ-CP quy định: phạt tiền từ **30.000.000 đồng đến 40.000.000 đồng** đối với hành vi:
+> “Tổ chức, môi giới cho người khác xuất cảnh, nhập cảnh hoặc ở lại Việt Nam trái phép nhưng chưa đến mức truy cứu trách nhiệm hình sự; tổ chức, môi giới, giúp sức, xúi giục, chứa chấp, che giấu, tạo điều kiện cho người khác ở lại nước ngoài hoặc qua lại biên giới quốc gia trái phép nhưng chưa đến mức truy cứu trách nhiệm hình sự; giúp sức, xúi giục, chứa chấp, che giấu, tạo điều kiện cho người khác xuất cảnh, nhập cảnh, ở lại Việt Nam trái phép”.
+
+Nghị định số 348/2025/NÐ-CP có hiệu lực từ ngày **15/02/2026**.

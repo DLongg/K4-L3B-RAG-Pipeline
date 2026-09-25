@@ -1,0 +1,18 @@
+
+[
+  {"question": "Điều kiện kinh doanh dịch vụ lưu trú du lịch là gì?", "expected_answer": "Cần đối chiếu các điều kiện kinh doanh dịch vụ lưu trú theo Luật Du lịch và văn bản hướng dẫn hiện hành.", "expected_context": "article_02.md"},
+  {"question": "Hồ sơ xin e-visa nhập cảnh Việt Nam gồm những gì?", "expected_answer": "Cần kiểm tra hồ sơ, quy trình nộp và điều kiện e-visa theo hướng dẫn của cơ quan có thẩm quyền.", "expected_context": "article_03.md"},
+  {"question": "Khách du lịch có quyền gì khi sử dụng dịch vụ du lịch?", "expected_answer": "Khách du lịch có quyền được cung cấp thông tin, sử dụng dịch vụ đúng thỏa thuận và được bảo vệ quyền lợi hợp pháp.", "expected_context": "article_04.md"},
+  {"question": "Khách du lịch có nghĩa vụ gì?", "expected_answer": "Khách du lịch cần tuân thủ pháp luật, nội quy điểm đến và thanh toán chi phí theo thỏa thuận.", "expected_context": "article_04.md"},
+  {"question": "Phát triển du lịch bền vững cần tập trung vào yếu tố nào?", "expected_answer": "Phát triển bền vững cần kết hợp hiệu quả kinh tế với bảo vệ tài nguyên, môi trường và lợi ích cộng đồng.", "expected_context": "article_05.md"},
+  {"question": "Vi phạm hành chính trong lĩnh vực du lịch có thể bị xử lý thế nào?", "expected_answer": "Hình thức xử lý phụ thuộc vào hành vi, mức độ vi phạm và quy định xử phạt hiện hành.", "expected_context": "article_06.md"},
+  {"question": "Quy định xử phạt du lịch áp dụng cho đối tượng nào?", "expected_answer": "Quy định áp dụng cho cá nhân, tổ chức có hành vi vi phạm quy định quản lý nhà nước trong lĩnh vực du lịch.", "expected_context": "article_06.md"},
+  {"question": "Hà Nội có những địa điểm du lịch nào đáng chú ý?", "expected_answer": "Danh sách địa điểm cụ thể cần được tra cứu trong bài viết hướng dẫn du lịch Hà Nội.", "expected_context": "article_07.md"},
+  {"question": "Việt Nam có những điểm đến nổi tiếng nào?", "expected_answer": "Bài viết tổng hợp nhiều điểm đến nổi tiếng tại Việt Nam và thông tin tham khảo cho hành trình.", "expected_context": "article_08.md"},
+  {"question": "Tại sao cần cung cấp thông tin đầy đủ cho khách du lịch?", "expected_answer": "Thông tin đầy đủ giúp khách du lịch lựa chọn dịch vụ, thực hiện quyền và có hành trình an toàn hơn.", "expected_context": "article_04.md"},
+  {"question": "Doanh nghiệp lưu trú cần quan tâm điều kiện pháp lý nào?", "expected_answer": "Doanh nghiệp cần kiểm tra điều kiện kinh doanh dịch vụ lưu trú và các yêu cầu liên quan theo pháp luật.", "expected_context": "article_02.md"},
+  {"question": "E-visa liên quan đến hoạt động du lịch như thế nào?", "expected_answer": "E-visa là thủ tục nhập cảnh điện tử mà du khách cần hoàn tất theo điều kiện và quy trình hướng dẫn.", "expected_context": "article_03.md"},
+  {"question": "Phát triển du lịch bền vững có lợi ích gì cho địa phương?", "expected_answer": "Cách tiếp cận bền vững có thể tạo sinh kế, bảo tồn tài nguyên và tăng giá trị lâu dài cho cộng đồng địa phương.", "expected_context": "article_05.md"},
+  {"question": "Khách du lịch cần làm gì để tránh vi phạm nội quy điểm đến?", "expected_answer": "Khách du lịch nên đọc và tuân thủ nội quy, hướng dẫn của đơn vị cung cấp dịch vụ và quy định tại điểm đến.", "expected_context": "article_04.md"},
+  {"question": "Cần dựa vào đâu để tư vấn một hành trình du lịch Việt Nam?", "expected_answer": "Cần kết hợp thông tin điểm đến, điều kiện nhập cảnh, quy định dịch vụ và nguồn hướng dẫn du lịch trong tập dữ liệu.", "expected_context": "article_03.md; article_08.md"}
+]
