@@ -41,7 +41,7 @@
   ```bash
   pytest tests/test_acceptance.py -q
   ```
-- **Kết quả kiểm tra toàn dự án ngày 25/09/2026:** `24 passed`:
+- **Kết quả kiểm tra toàn dự án ngày 25/09/2026:** `25 passed`:
   - `test_corpus_has_required_legal_documents`: 3 file PDF hợp lệ (>1KB), đạt yêu cầu tối thiểu.
   - `test_corpus_has_required_news_with_metadata`: 7 file JSON có đầy đủ `url, title, date_crawled, content_markdown`.
   - `test_standardized_output_covers_both_source_types`: 10 file Markdown chuẩn hóa (>200 ký tự).

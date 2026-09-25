@@ -40,7 +40,7 @@
   ```bash
   pytest tests/test_contracts.py -q
   ```
-- **Kết quả toàn dự án tại ngày báo cáo:** `24 passed`:
+- **Kết quả toàn dự án tại ngày báo cáo:** `25 passed`:
   - `test_public_function_signatures_are_stable`: Tất cả chữ ký hàm chuẩn hóa.
   - `test_document_validator_accepts_contract`: Schema document/chunk chuẩn xác.
   - `test_search_result_validator_checks_order_method_and_uniqueness`: Kết quả search không trùng lặp ID, sắp xếp giảm dần theo score.

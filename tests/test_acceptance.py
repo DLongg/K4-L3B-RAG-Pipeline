@@ -55,3 +55,17 @@ def test_evaluation_report_is_completed():
     lowered = report.lower()
     for heading in ("overall scores", "a/b comparison", "worst performers", "recommendations"):
         assert heading in lowered
+
+
+def test_vlearn_submission_artifacts_are_present():
+    teammates = (ROOT / "TEAMMATES.md").read_text(encoding="utf-8")
+    reports = {
+        "2A202602657": ROOT / "reports/K4-L3B-2A202602657-VuTienLinh.md",
+        "2A202602474": ROOT / "reports/K4-L3B-2A202602474-DuongDinhLong.md",
+        "2A202602718": ROOT / "reports/K4-L3B-2A202602718-NguyenDinhThai.md",
+    }
+    for student_id, path in reports.items():
+        assert path.is_file(), f"Missing VLearn report: {path.name}"
+        content = path.read_text(encoding="utf-8")
+        assert student_id in content
+        assert path.name in teammates
