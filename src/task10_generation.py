@@ -62,9 +62,12 @@ def call_llm(system_prompt: str, user_message: str) -> str:
     model_name = os.getenv("LLM_MODEL", LLM_MODEL)
 
     if provider == "gemini":
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY is not configured in .env")
         from google import genai
-        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-        target_model = model_name or "gemini-2.5-flash"
+        client = genai.Client(api_key=api_key)
+        target_model = model_name if model_name and "2.5" not in model_name else "gemini-3.5-flash-lite"
         response = client.models.generate_content(
             model=target_model,
             contents=f"{system_prompt}\n\n{user_message}",
@@ -72,8 +75,11 @@ def call_llm(system_prompt: str, user_message: str) -> str:
         return response.text or ""
 
     elif provider == "openai":
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY is not configured in .env")
         from openai import OpenAI
-        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        client = OpenAI(api_key=api_key)
         target_model = model_name or "gpt-4o-mini"
         response = client.chat.completions.create(
             model=target_model,
@@ -86,8 +92,11 @@ def call_llm(system_prompt: str, user_message: str) -> str:
         return response.choices[0].message.content or ""
 
     elif provider == "anthropic":
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key:
+            raise ValueError("ANTHROPIC_API_KEY is not configured in .env")
         from anthropic import Anthropic
-        client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        client = Anthropic(api_key=api_key)
         target_model = model_name or "claude-3-5-haiku-20241022"
         response = client.messages.create(
             model=target_model,
@@ -99,14 +108,7 @@ def call_llm(system_prompt: str, user_message: str) -> str:
         return response.content[0].text or ""
 
     else:
-        # Fallback to gemini if available
-        from google import genai
-        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=f"{system_prompt}\n\n{user_message}",
-        )
-        return response.text or ""
+        raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
 
 
 def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:

@@ -25,8 +25,8 @@ CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 CHUNKING_METHOD = "recursive"
 
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-m3")
-EMBEDDING_DIM = 1024
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "gemini-embedding-001")
+EMBEDDING_DIM = 3072 if "gemini" in os.getenv("EMBEDDING_PROVIDER", "gemini").lower() else 1024
 
 COLLECTION_NAME = "rag_documents"
 
@@ -46,21 +46,33 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
     """Dispatch embedding theo EMBEDDING_PROVIDER trong .env."""
     if not texts:
         return []
-    provider = os.getenv("EMBEDDING_PROVIDER", "sentence_transformers").lower()
+    provider = os.getenv("EMBEDDING_PROVIDER", "gemini").lower()
 
-    if provider == "sentence_transformers":
+    if provider == "gemini":
+        from google import genai
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY is not configured in .env")
+        client = genai.Client(api_key=api_key)
+        model_name = os.getenv("EMBEDDING_MODEL", "gemini-embedding-001")
+        if "text-embedding-004" in model_name or not model_name:
+            model_name = "gemini-embedding-001"
+
+        embeddings = []
+        batch_size = 50
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i : i + batch_size]
+            result = client.models.embed_content(
+                model=model_name,
+                contents=batch,
+            )
+            embeddings.extend([e.values for e in result.embeddings])
+        return embeddings
+
+    elif provider == "sentence_transformers":
         model = get_embedding_model()
         embeddings = model.encode(texts, normalize_embeddings=True)
         return embeddings.tolist()
-    elif provider == "gemini":
-        from google import genai
-        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-        model_name = os.getenv("EMBEDDING_MODEL", "text-embedding-004")
-        result = client.models.embed_content(
-            model=model_name,
-            contents=texts,
-        )
-        return [e.values for e in result.embeddings]
     elif provider == "openai":
         from openai import OpenAI
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -133,15 +145,20 @@ def chunk_documents(documents: list[dict]) -> list[dict]:
     chunks = []
     for document in documents:
         split_texts = splitter.split_text(document["content"])
-        for index, text in enumerate(split_texts):
+        chunk_idx = 0
+        for text in split_texts:
+            clean_text = text.strip()
+            if not clean_text:
+                continue
             chunks.append({
-                "id": f"{document['id']}::chunk-{index}",
-                "content": text,
+                "id": f"{document['id']}::chunk-{chunk_idx}",
+                "content": clean_text,
                 "metadata": {
                     **document["metadata"],
-                    "chunk_index": index,
+                    "chunk_index": chunk_idx,
                 },
             })
+            chunk_idx += 1
     return chunks
 
 
@@ -160,12 +177,26 @@ def index_to_vectorstore(chunks: list[dict]) -> None:
     if not chunks:
         return
     collection = get_collection()
-    collection.upsert(
-        ids=[chunk["id"] for chunk in chunks],
-        documents=[chunk["content"] for chunk in chunks],
-        embeddings=[chunk["embedding"] for chunk in chunks],
-        metadatas=[chunk["metadata"] for chunk in chunks],
-    )
+
+    # ChromaDB metadata does not accept None values. Convert None to empty string.
+    sanitized_metadatas = []
+    for chunk in chunks:
+        meta = {}
+        for k, v in chunk.get("metadata", {}).items():
+            meta[k] = "" if v is None else v
+        sanitized_metadatas.append(meta)
+
+    # Batching to avoid max batch limit in ChromaDB
+    batch_size = 200
+    for i in range(0, len(chunks), batch_size):
+        batch_chunks = chunks[i : i + batch_size]
+        batch_metas = sanitized_metadatas[i : i + batch_size]
+        collection.upsert(
+            ids=[chunk["id"] for chunk in batch_chunks],
+            documents=[chunk["content"] for chunk in batch_chunks],
+            embeddings=[chunk["embedding"] for chunk in batch_chunks],
+            metadatas=batch_metas,
+        )
 
 
 def run_pipeline() -> None:

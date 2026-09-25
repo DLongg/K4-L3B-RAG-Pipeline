@@ -11,13 +11,18 @@ Luồng xử lý:
 Không so sánh threshold với RRF score vì hai thang đo khác nhau.
 """
 
+import os
+from dotenv import load_dotenv
+
 from .task5_semantic_search import semantic_search
 from .task6_lexical_search import lexical_search
 from .task7_reranking import rerank_rrf
 from .task8_pageindex_vectorless import pageindex_search
 
+load_dotenv()
 
-SCORE_THRESHOLD = 0.3
+_ENV_THRESHOLD = os.getenv("SCORE_THRESHOLD")
+SCORE_THRESHOLD = float(_ENV_THRESHOLD) if _ENV_THRESHOLD and _ENV_THRESHOLD.strip() else 0.3
 DEFAULT_TOP_K = 5
 
 

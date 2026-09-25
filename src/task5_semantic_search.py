@@ -33,11 +33,14 @@ def semantic_search(query: str, top_k: int = 10) -> list[dict]:
 
     for item_id, content, metadata, distance in zip(ids, documents, metadatas, distances):
         score = float(max(0.0, min(1.0, 1.0 - distance)))
+        cleaned_meta = dict(metadata) if metadata else {}
+        if cleaned_meta.get("url") == "":
+            cleaned_meta["url"] = None
         results.append({
             "id": item_id,
             "content": content,
             "score": score,
-            "metadata": metadata,
+            "metadata": cleaned_meta,
             "retrieval_method": "dense",
         })
 
