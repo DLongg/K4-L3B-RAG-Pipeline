@@ -25,7 +25,7 @@
 
 ## Quyết định kỹ thuật quan trọng
 
-1. **Quyết định:** Sử dụng giải pháp fallback OCR (RapidOCR + PyMuPDF) khi MarkItDown gặp PDF dạng bản quét (scanned PDF) không có text layer.  
+1. **Quyết định:** Sử dụng giải pháp OCR (RapidOCR + PyMuPDF) khi MarkItDown gặp PDF dạng bản quét (scanned PDF) không có text layer.  
    **Lý do/evidence:** Tài liệu pháp quy như Nghị định 168 và Quyết định 509 có chữ ký số/con dấu scan khiến MarkItDown trả về văn bản rỗng. RapidOCR giúp bóc tách đầy đủ nội dung văn bản mà không làm rớt trang.  
    **Trade-off:** Quá trình OCR chạy trên CPU mất thêm thời gian chuyển đổi ban đầu (~1-2 phút cho file lớn), nhưng bảo đảm toàn vẹn dữ liệu cho khâu chunking tiếp theo.
 
