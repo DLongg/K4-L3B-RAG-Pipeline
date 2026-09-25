@@ -253,3 +253,67 @@ def test_generation_result_validator_accepts_safe_refusal():
             "retrieval_source": "none",
         }
     )
+
+
+def test_threshold_calibration_uses_balanced_accuracy():
+    from src.task9_retrieval_pipeline import calibrate_threshold
+
+    result = calibrate_threshold([
+        {"score": 0.8, "in_domain": True},
+        {"score": 0.6, "in_domain": True},
+        {"score": 0.3, "in_domain": False},
+        {"score": 0.1, "in_domain": False},
+    ])
+    selected = result["selected"]
+    assert 0.3 < selected["threshold"] <= 0.6
+    assert selected["balanced_accuracy"] == 1.0
+
+
+def test_pageindex_parses_tree_without_network(monkeypatch):
+    import src.task8_pageindex_vectorless as pageindex
+
+    monkeypatch.setenv("PAGEINDEX_API_KEY", "test-key")
+    monkeypatch.setattr(pageindex, "_load_cache", lambda: {
+        "data/landing/legal/law.pdf": {
+            "doc_id": "pi-1",
+            "metadata": {"source": "law.pdf", "title": "Luật", "doc_type": "legal", "url": None},
+        }
+    })
+    monkeypatch.setattr(pageindex, "_request", lambda *args, **kwargs: {
+        "status": "completed",
+        "result": [{"node_id": "n1", "title": "Điều 1", "page_index": 2,
+                    "text": "Nội dung điều luật", "nodes": []}],
+    })
+    monkeypatch.setattr(pageindex, "_select", lambda query, candidates, top_k: ["pi-1::n1"])
+
+    output = pageindex.pageindex_search("Điều 1 quy định gì?", top_k=3)
+    validate_search_results(output, top_k=3, expected_method="pageindex")
+    assert output[0]["metadata"]["page_index"] == 2
+
+
+def test_generation_keeps_citation_labels_aligned_after_reorder(monkeypatch):
+    import src.task10_generation as generation
+
+    chunks = [result(f"chunk-{index}", 1 - index / 10, "hybrid") for index in range(5)]
+    monkeypatch.setattr(generation, "retrieve", lambda query, top_k: chunks)
+
+    def fake_llm(system_prompt, user_message):
+        # chunk-1 is moved to the end, but must keep its public label Document 2.
+        assert "[Document 2" in user_message
+        assert user_message.rfind("[Document 2") > user_message.find("[Document 5")
+        return "Thông tin được xác minh. [Document 2]"
+
+    monkeypatch.setattr(generation, "call_llm", fake_llm)
+    output = generation.generate_with_citation("tuition", top_k=5)
+    validate_generation_result(output)
+    assert output["sources"] == chunks
+
+
+def test_generation_rejects_unknown_citation(monkeypatch):
+    import src.task10_generation as generation
+
+    chunks = [result("chunk-0", 0.9, "hybrid")]
+    monkeypatch.setattr(generation, "retrieve", lambda query, top_k: chunks)
+    monkeypatch.setattr(generation, "call_llm", lambda *args: "Sai nguồn [Document 9]")
+    output = generation.generate_with_citation("tuition")
+    assert output == {"answer": generation.SAFE_REFUSAL_MESSAGE, "sources": [], "retrieval_source": "none"}

@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-25",
+  "embedding_model": "BAAI/bge-m3",
+  "corpus_chunks": 558,
+  "selected": {
+    "threshold": 0.5755430459976196,
+    "balanced_accuracy": 1.0,
+    "in_domain_pass_rate": 1.0,
+    "out_of_domain_fallback_rate": 1.0
+  },
+  "samples": [
+    {"query": "Điều kiện kinh doanh dịch vụ lưu trú du lịch là gì?", "in_domain": true, "score": 0.7664036750793457},
+    {"query": "Khách du lịch có những quyền gì theo Luật Du lịch?", "in_domain": true, "score": 0.7627667188644409},
+    {"query": "Thủ tục xin e-visa nhập cảnh Việt Nam gồm những gì?", "in_domain": true, "score": 0.7630330920219421},
+    {"query": "Vi phạm hành chính trong lĩnh vực du lịch bị xử lý thế nào?", "in_domain": true, "score": 0.7163215279579163},
+    {"query": "Phát triển du lịch bền vững mang lại lợi ích gì?", "in_domain": true, "score": 0.7123852968215942},
+    {"query": "Cách thay dầu động cơ ô tô tại nhà?", "in_domain": false, "score": 0.41898494958877563},
+    {"query": "Giá cổ phiếu công nghệ ngày mai sẽ tăng hay giảm?", "in_domain": false, "score": 0.42517203092575073},
+    {"query": "Viết chương trình sắp xếp nhanh bằng Rust", "in_domain": false, "score": 0.42338448762893677},
+    {"query": "Phác đồ điều trị viêm phổi cho trẻ sơ sinh", "in_domain": false, "score": 0.3974558115005493},
+    {"query": "Luật việt vị trong bóng đá được áp dụng thế nào?", "in_domain": false, "score": 0.438700795173645}
+  ]
+}

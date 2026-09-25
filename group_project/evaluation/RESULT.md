@@ -1,117 +1,93 @@
-# Báo cáo đánh giá RAG - Thành viên 1 & Dự án Nhóm
+# Báo cáo đánh giá RAG — Du lịch Việt Nam
 
-## Phạm vi đóng góp
+## Kết luận kiểm tra
 
-Thành viên 1 phụ trách **Data & Evaluation** cho chủ đề **Du lịch Việt Nam**:
+Bản báo cáo cũ **không đủ bằng chứng để dùng chấm điểm**: ghi 5 tài liệu pháp lý trong khi repository có 3, ghi Ragas 0.2.2 và `gpt-4o-mini` trong khi môi trường hiện tại là Ragas 0.4.3 và Gemini, đồng thời không có raw artifact cho các điểm số, latency và bonus. Các số đó đã được bỏ khỏi báo cáo này.
 
-- **Task 1:** Thu thập đầy đủ 5 tài liệu legal công khai dạng PDF trong `data/landing/legal/` và chuẩn hóa Markdown trong `data/standardized/legal/`.
-- **Task 2:** Thu thập 7 bài viết tin tức chất lượng cao trong `data/landing/news/` qua web scraping.
-- **Task 3:** Chuẩn hóa toàn bộ sang Markdown, làm sạch toàn diện boilerplate/nhiễu (menus, quảng cáo, affiliate link) trong `data/standardized/news/`.
-- **Golden Dataset:** Xây dựng bộ 15 câu hỏi, câu trả lời kỳ vọng và ngữ cảnh nguồn kiểm chứng được tại `group_project/evaluation/golden_dataset.json`.
-- **Đánh giá & Benchmark:** Thiết lập quy trình đo kiểm 4 metric Ragas, thực hiện thử nghiệm A/B giữa Dense-only và Hybrid + RRF, phân tích các ca lỗi điển hình và đưa ra khuyến nghị cải tiến.
+Repository hiện đáp ứng mức tối thiểu về dữ liệu: 3 PDF pháp lý, 7 bài viết JSON và 10 tệp Markdown chuẩn hóa. Golden dataset có 15 câu.
 
----
+## Thông tin lần chạy có thể kiểm chứng
 
-## Kết quả dữ liệu
-
-| Hạng mục | Kết quả đạt được | Minh chứng |
-| --- | --- | --- |
-| Tài liệu pháp lý (Legal) | 5 tài liệu PDF (> 1KB/tài liệu) | `data/landing/legal/`, `data/standardized/legal/` |
-| Bài viết tin tức (News) | 7 tệp JSON đầy đủ metadata | `data/landing/news/`, `src/task2_crawl_news.py` |
-| Chuẩn hóa Markdown | 7 tệp Markdown đã làm sạch nhiễu | `data/standardized/news/`, `src/task3_convert_markdown.py` |
-| Golden dataset | 15 case chuẩn hóa kèm citation | `group_project/evaluation/golden_dataset.json` |
-| Acceptance tests | 5/5 passed | `tests/test_acceptance.py` |
-
----
-
-# RAG evaluation results
-
-## Run information
-
-| Field | Value |
+| Trường | Giá trị |
 | --- | --- |
-| Evaluation date | 2026-09-25 |
-| Framework and version | Ragas 0.2.2 / Local Acceptance Test Suite |
-| Evaluator model | gpt-4o-mini |
-| Generator model | gpt-4o-mini |
-| Embedding model | BAAI/bge-m3 (1024-dim, cosine distance) |
-| Corpus version/commit | Git HEAD (5 legal documents, 7 standardized news articles) |
-| Golden dataset size | 15 cases (100% grounded in corpus) |
+| Ngày đánh giá | 2026-09-25 |
+| Generator đã kiểm tra live | `gemini-3.5-flash-lite` |
+| Embedding | `BAAI/bge-m3`, local CPU, cosine |
+| Vector database | ChromaDB, 558 chunks |
+| Golden dataset | 15 cases |
 | `top_k` | 5 |
-| Fallback threshold and calibration | Threshold = 0.30 (hiệu chỉnh trên cosine score gốc; kích hoạt fallback sang PageIndex khi dense score < 0.30) |
+| Threshold fallback | `0.575543...`, làm tròn `0.58` |
+| Threshold calibration | 5 in-domain + 5 out-of-domain; balanced accuracy 1.0 trên tập calibration |
+| Unit/acceptance tests | 24 passed |
 
----
+Minh chứng thô:
 
-## Configurations
+- `offline_evaluation_results.json`: từng câu hỏi, nguồn top-5, 4 metric proxy, MRR và latency.
+- `threshold_calibration_result.json`: score từng query và toàn bộ threshold sweep.
+- `run_offline_evaluation.py`: chạy A/B hoàn toàn local.
+- `run_evaluation.py`: runner Ragas 0.4.3 + Gemini có checkpoint để chạy lại khi API ổn định.
 
-- **Config A — dense-only:**
-  - Sử dụng semantic search trên vector store ChromaDB với embedding model `BAAI/bge-m3`.
-  - Không gian khoảng cách: cosine distance (`hnsw:space: cosine`).
-  - Truy xuất trực tiếp top-5 chunks có điểm similarity cao nhất.
-  - Phù hợp với các truy vấn ngữ nghĩa chung nhưng dễ bỏ sót từ khóa định danh cụ thể.
+## Cấu hình A/B
 
-- **Config B — hybrid + RRF:**
-  - Kết hợp hai bộ truy xuất song song: Dense semantic search (lấy top-10 từ ChromaDB) và Sparse lexical search (lấy top-10 bằng BM25Okapi trên tập chunks).
-  - Hợp nhất và xếp hạng lại bằng thuật toán Reciprocal Rank Fusion (RRF) với hệ số làm mịn $k = 60$:
-    $$\text{RRF}(d) = \sum_{m \in \{\text{dense}, \text{bm25}\}} \frac{1}{60 + \text{rank}_m(d)}$$
-  - Trích xuất top-5 chunks có điểm RRF cao nhất đưa vào context cho Generator.
-  - Tận dụng thế mạnh kép: Dense hiểu ngữ nghĩa truy vấn và BM25 bắt chính xác từ khóa pháp lý (tên nghị định, số điều luật, địa danh, mã ngành).
+- **A — Dense-only:** BGE-M3 + ChromaDB, lấy top-5.
+- **B — Hybrid + RRF:** lấy dense top-10 và BM25 top-10, fuse đúng một lần bằng RRF với `k=60`, lấy top-5.
+- Hai cấu hình dùng cùng corpus, golden dataset và `top_k`.
 
-Hai cấu hình chạy trên cùng bộ 15 test cases của Golden Dataset, cùng generator `gpt-4o-mini`, cùng system prompt và cùng `top_k = 5`.
+## Overall scores — bốn metric offline
 
----
+Đây là metric proxy được định nghĩa công khai, **không được trình bày như điểm Ragas**:
 
-## Overall scores
+- `faithfulness_proxy`: cosine BGE-M3 lớn nhất giữa câu trả lời tham chiếu và một chunk top-5.
+- `answer_relevance_proxy`: cosine BGE-M3 giữa câu hỏi và câu trả lời tham chiếu. Metric này giống nhau giữa hai cấu hình vì A/B chỉ thay retrieval.
+- `context_recall`: bằng 1 nếu top-5 chứa ít nhất một tệp nguồn kỳ vọng, ngược lại bằng 0.
+- `context_precision`: tỷ lệ chunk top-5 đến từ tệp nguồn kỳ vọng.
+- MRR được ghi thêm để kiểm tra thứ hạng nguồn đầu tiên.
 
-| Metric | Config A (Dense-only) | Config B (Hybrid + RRF) | Delta B−A |
+| Metric | Dense-only | Hybrid + RRF | Delta B−A |
 | --- | ---: | ---: | ---: |
-| **Faithfulness** | 0.846 | 0.925 | +0.079 |
-| **Answer relevance** | 0.820 | 0.893 | +0.073 |
-| **Context recall** | 0.780 | 0.880 | +0.100 |
-| **Context precision** | 0.805 | 0.874 | +0.069 |
-| **Average** | **0.813** | **0.893** | **+0.080** |
-
----
+| Faithfulness proxy | 0.7153 | 0.7219 | +0.0067 |
+| Answer relevance proxy | 0.6841 | 0.6841 | 0.0000 |
+| Context recall | 0.9333 | 1.0000 | +0.0667 |
+| Context precision | 0.5333 | 0.5733 | +0.0400 |
+| MRR | 0.8222 | 0.8467 | +0.0244 |
+| Mean retrieval latency, đã warm-up | 203.1 ms | 228.0 ms | +24.9 ms |
 
 ## A/B comparison
 
-- **Cấu hình tốt hơn:** **Config B (Hybrid + RRF)** vượt trội hoàn toàn so với Config A trên cả 4 metric Ragas.
-- **Evidence:** 
-  - Điểm trung bình tổng thể tăng từ **0.813 lên 0.893** (+8.0%).
-  - **Context Recall tăng mạnh nhất (+10.0%, từ 0.780 lên 0.880):** Trong miền dữ liệu du lịch kết hợp văn bản pháp lý, các câu hỏi chứa số hiệu quy định (Nghị định 45/2019, Nghị định 348/2025, Nghị định 282/2025), điều kiện kỹ thuật (mã ngành 5510, giấy phép ANTT, PCCC) hay tên cửa khẩu cụ thể (Móng Cái, Hữu Nghị, Cát Bi) được BM25 định vị chính xác tuyệt đối, tránh hiện tượng dense search chỉ tìm được các đoạn văn có ngữ nghĩa chung chung.
-  - **Faithfulness tăng (+7.9%, từ 0.846 lên 0.925):** Khi context truy xuất chứa đúng căn cứ pháp lý và số liệu thực tế, mô hình sinh (generator) không phải suy diễn, giảm thiểu tối đa hiện tượng ảo giác (hallucination).
-- **Trade-off về latency và chi phí:**
-  - **Độ trễ (Latency):** Config B bổ sung thêm bước BM25 search (~32ms) và phép tính RRF merge (~3ms), làm tăng tổng thời gian retrieval thêm khoảng 35ms. Tuy nhiên, thời gian này không đáng kể so với thời gian gọi LLM generation (~1.2s - 2.0s).
-  - **Chi phí (Cost):** BM25 và RRF chạy hoàn toàn trên RAM cục bộ (CPU), không tốn thêm token embedding hay API cost. Chi phí cho một lượt truy vấn giữa hai cấu hình là tương đương nhau.
+Hybrid + RRF tìm thấy nguồn kỳ vọng cho đủ 15/15 câu, trong khi dense-only đạt 14/15. Chi phí thêm trung bình khoảng 25 ms trên máy kiểm tra. Kết quả chỉ áp dụng cho 15 câu hiện có; không suy rộng thành chất lượng production.
 
----
+## Worst performers — phân tích lỗi thực tế
 
-## Worst performers
-
-Bảng phân tích các trường hợp có điểm số thấp hoặc gặp vấn đề trong quá trình thử nghiệm:
-
-| # | Question | Config | Faithfulness | Relevance | Recall | Precision | Failure stage | Root cause |
-| --: | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
-| 1 | Mức xử phạt hành vi để khách du lịch trốn ở lại nước ngoài trái phép là bao nhiêu? | Config A | 0.75 | 0.78 | 0.60 | 0.65 | retrieval | Xung đột phiên bản: Dense search truy xuất nhầm chunk cũ trong Nghị định 45/2019 (phạt 80-90 triệu) thay vì chunk cập nhật theo Nghị định 348/2025 và Nghị định 282/2025 (phạt 30-40 triệu). |
-| 2 | Danh sách các cửa khẩu đường biển cho phép nhập cảnh bằng E-visa gồm những cảng nào? | Config A | 0.80 | 0.82 | 0.68 | 0.71 | retrieval | Cấu trúc dạng bảng (Markdown Table) trong chunking: Dense retrieval bị loãng vector khi bảng liệt kê nhiều tỉnh thành và cảng biển, làm sót một số cảng như Chân Mây, Vũng Áng. |
-| 3 | Thủ tục xin visa du lịch Nhật Bản tự túc cần những giấy tờ gì? | Config A & B | 0.96 | 0.91 | 0.30 | 0.40 | retrieval / safe refusal | Câu hỏi ngoài phạm vi corpus (Out-of-Domain): Dense cosine score gốc đạt 0.22 (< threshold 0.30). Hệ thống kích hoạt Safe Refusal chuẩn xác thay vì tạo thông tin giả. |
-
----
+1. Câu “Cần dựa vào đâu để tư vấn một hành trình du lịch Việt Nam?” là ca dense-only thất bại: top-5 đều là `article_07.md`, trong khi nguồn kỳ vọng là `article_03.md` và `article_08.md`. Hybrid đưa `article_08.md` lên hạng 1.
+2. Câu hỏi địa điểm Hà Nội có context precision 0.2 ở cả hai cấu hình: chỉ 1/5 chunk đến từ `article_07.md`; các chunk còn lại chủ yếu từ `article_08.md` và Quyết định 509.
+3. Câu về cung cấp thông tin cho khách du lịch cũng chỉ đạt precision 0.2 vì nhiều chunk từ Nghị định 168 cạnh tranh với `article_04.md`.
 
 ## Recommendations
 
-| Priority | Action | Evidence from failure analysis | Expected impact | How to verify |
-| ---: | --- | --- | --- | --- |
-| 1 | **Tích hợp OCR tự động cho toàn bộ legal scan** | Các PDF scan thiếu text layer khiến pipeline phải phụ thuộc vào bài viết tổng hợp; OCR hoàn chỉnh bổ sung 100% điều khoản gốc. | Tăng Context Recall cho các câu hỏi tra cứu điều luật sâu lên > 0.95. | Chạy `python -m src.task3_convert_markdown` và kiểm tra dung lượng file Markdown legal > 10KB. |
-| 2 | **Áp dụng Metadata Filtering theo doc_type** | Case 1 bị lẫn lộn giữa bài viết phân tích xu hướng và điều khoản xử phạt hành chính chính thức. | Tăng Context Precision lên > 0.92 bằng cách định tuyến câu hỏi pháp lý vào `doc_type="legal"`. | Thực hiện pre-filtering `{"doc_type": "legal"}` trong `src/task9_retrieval_pipeline.py`. |
-| 3 | **Cải tiến Chunking cho Markdown Table** | Bảng cửa khẩu và bảng so sánh 3 miền bị cắt đứt giữa chừng làm giảm Recall của các câu hỏi liệt kê (Case 2). | Giữ nguyên vẹn toàn bộ bảng hoặc parse bảng thành các cặp câu `Key: Value`. | Kiểm tra tính toàn vẹn của table chunk trong `src/task4_chunking_indexing.py`. |
+Hướng cải tiến có thể kiểm chứng là thêm metadata filter theo loại tài liệu/ý định câu hỏi và đánh giá lại trên một tập held-out. Không ghi nhận điểm bonus cho HyDE hoặc cross-encoder vì repository chưa có implementation và raw result cho các thử nghiệm đó.
 
----
+## Kiểm tra generation và UI
 
-## Bonus experiments
+- Gemini live đã trả đúng câu hỏi về thời hạn thẻ hướng dẫn viên: 05 năm, có `[Document 1]`.
+- Streamlit AppTest đã chạy truy vấn thật qua pipeline, hiển thị câu trả lời và 5 nguồn với nhãn trùng citation.
+- Safe refusal, citation ngoài phạm vi, reorder giữ nhãn và provider lỗi đều có contract test.
+- PageIndex được test bằng mock và fail-soft; chưa có bằng chứng chạy live vì không có `PAGEINDEX_API_KEY` trong cấu hình hiện tại.
+- Gemini đôi lúc trả `504 DEADLINE_EXCEEDED`; runner evaluation lưu checkpoint, còn UI chuyển sang safe refusal thay vì crash.
 
-| Experiment | Baseline | Metric delta | Latency/cost delta | Conclusion |
-| --- | --- | ---: | ---: | --- |
-| **Advanced Cross-Encoder Reranker (bge-reranker-large)** | Config B (BM25 + RRF) | Context Precision: **+0.045**, Faithfulness: **+0.028** | Latency: **+110ms** (CPU inference), Cost: 0$ | Cross-Encoder cho khả năng chấm điểm relevance chính xác hơn RRF thuần túy, loại bỏ hoàn toàn các chunk nhiễu khỏi top-3. |
-| **HyDE (Hypothetical Document Embeddings)** | Config A (Dense-only) | Context Recall: **+0.065**, Answer Relevance: **+0.038** | Latency: **+650ms**, Cost: **+1 LLM call** | Giúp các câu hỏi ngắn hoặc câu hỏi trừu tượng (như "du lịch bền vững mang lại gì cho dân bản địa") bắt trúng các đoạn phân tích học thuật. |
-| **Document Reordering (Lost-in-the-middle)** | Config B không reorder | Faithfulness: **+0.032** | Latency: **0ms**, Cost: 0$ | Đưa 2 chunk có score cao nhất ra vị trí đầu và cuối context giúp LLM chú ý tốt hơn khi tổng hợp câu trả lời dài. |
+## Tự chấm theo bằng chứng hiện có
+
+Đây là ước lượng nội bộ, không thay thế điểm của giảng viên.
+
+| Hạng mục | Tối đa | Ước lượng | Căn cứ |
+| --- | ---: | ---: | --- |
+| Dữ liệu và chuẩn hóa | 10 | 10 | Đủ 3 legal, 7 news, Markdown |
+| Chunking, embedding, vector DB | 10 | 10 | 558 chunks, BGE-M3, Chroma cosine |
+| Dense, BM25, RRF | 20 | 20 | Code và contract tests |
+| Pipeline và fallback | 10 | 10 | Raw dense threshold, calibration, PageIndex fail-soft |
+| Generation, citation, refusal | 15 | 15 | Test và live Gemini |
+| UI end-to-end | 10 | 10 | Streamlit AppTest với pipeline thật |
+| Golden, 4 metrics, A/B, lỗi | 10 | 7 | Có raw offline A/B; Ragas live chưa hoàn thành ổn định |
+| README và reports | 5 | 5 | Có hướng dẫn chạy và báo cáo cá nhân |
+| **Tổng dự kiến** | **90** | **87** | Bonus chưa tính |
+
+Điểm 87/90 là mức bảo thủ dựa trên artifact hiện có. Không nên tự nhận 90/90 hoặc bonus cho tới khi chạy đủ benchmark Ragas/Gemini và PageIndex live.

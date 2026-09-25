@@ -1,0 +1,12 @@
+[
+  {"query": "Điều kiện kinh doanh dịch vụ lưu trú du lịch là gì?", "in_domain": true},
+  {"query": "Khách du lịch có những quyền gì theo Luật Du lịch?", "in_domain": true},
+  {"query": "Thủ tục xin e-visa nhập cảnh Việt Nam gồm những gì?", "in_domain": true},
+  {"query": "Vi phạm hành chính trong lĩnh vực du lịch bị xử lý thế nào?", "in_domain": true},
+  {"query": "Phát triển du lịch bền vững mang lại lợi ích gì?", "in_domain": true},
+  {"query": "Cách thay dầu động cơ ô tô tại nhà?", "in_domain": false},
+  {"query": "Giá cổ phiếu công nghệ ngày mai sẽ tăng hay giảm?", "in_domain": false},
+  {"query": "Viết chương trình sắp xếp nhanh bằng Rust", "in_domain": false},
+  {"query": "Phác đồ điều trị viêm phổi cho trẻ sơ sinh", "in_domain": false},
+  {"query": "Luật việt vị trong bóng đá được áp dụng thế nào?", "in_domain": false}
+]
